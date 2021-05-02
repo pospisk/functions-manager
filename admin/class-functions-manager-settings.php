@@ -75,7 +75,7 @@ class Functions_Manager_Settings {
 		$defaults = array(
 			'remove_widgets'		=>	'',
 			'allow_svg_upload'		=>	'',
-			'show_footer'		=>	'',
+			'remove_emojis'		=>	'',
 		);
 
 		return $defaults;
@@ -259,20 +259,20 @@ class Functions_Manager_Settings {
 			'fm_wordpress_settings',
 			'general_settings_section',
 			array(
-				__( 'Activate this to allow svg uploads to media.', 'functions-manager' ),
+				__( 'Activate to allow svg uploads to media.', 'functions-manager' ),
 			)
 		);
 
-		// add_settings_field(
-		// 	'show_footer',
-		// 	__( 'Footer', 'functions-manager' ),
-		// 	array( $this, 'toggle_footer_callback'),
-		// 	'fm_wordpress_settings',
-		// 	'general_settings_section',
-		// 	array(
-		// 		__( 'Activate this setting to display the footer.', 'functions-manager' ),
-		// 	)
-		// );
+		add_settings_field(
+			'remove_emojis',
+			__( 'Remove Emojis', 'functions-manager' ),
+			array( $this, 'toggle_footer_callback'),
+			'fm_wordpress_settings',
+			'general_settings_section',
+			array(
+				__( 'Activate to remove emojis.', 'functions-manager' ),
+			)
+		);
 
 		// Finally, we register the fields with WordPress
 		register_setting(
@@ -443,8 +443,8 @@ class Functions_Manager_Settings {
 
 		$options = get_option('fm_wordpress_settings');
 
-		$html = '<input type="checkbox" id="show_footer" name="fm_wordpress_settings[show_footer]" value="1" ' . checked( 1, isset( $options['show_footer'] ) ? $options['show_footer'] : 0, false ) . '/>';
-		$html .= '<label for="show_footer">&nbsp;'  . $args[0] . '</label>';
+		$html = '<input type="checkbox" id="remove_emojis" name="fm_wordpress_settings[remove_emojis]" value="1" ' . checked( 1, isset( $options['remove_emojis'] ) ? $options['remove_emojis'] : 0, false ) . '/>';
+		$html .= '<label for="remove_emojis">&nbsp;'  . $args[0] . '</label>';
 
 		echo $html;
 

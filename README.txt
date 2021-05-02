@@ -26,6 +26,7 @@ This section describes how to install the plugin and get it working.
 * created functions structure
 * added "Remove Dashboard Widgets"
 * added "Allow SVG Upload"
+* added "Remove Emojis"
 
 = 0.1 =
 * created settings page

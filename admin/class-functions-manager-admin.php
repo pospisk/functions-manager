@@ -124,12 +124,16 @@ class Functions_Manager_Admin {
 		$options = get_option('fm_wordpress_settings');
 		$remove_widgets = isset( $options['remove_widgets'] ) ? $options['remove_widgets'] : 0;
 		$allow_svg_upload = isset( $options['allow_svg_upload'] ) ? $options['allow_svg_upload'] : 0;
+		$remove_emojis = isset( $options['remove_emojis'] ) ? $options['remove_emojis'] : 0;
 
 		if ( $remove_widgets == 1 ){
 			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/remove_widgets.php';
 		}
 		if ( $allow_svg_upload == 1 ){
 			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/allow_svg_upload.php';
+		}
+		if ( $remove_emojis == 1 ){
+			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/remove_emojis.php';
 		}
 		
 	}
