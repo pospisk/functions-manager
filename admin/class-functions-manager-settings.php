@@ -74,7 +74,7 @@ class Functions_Manager_Settings {
 
 		$defaults = array(
 			'remove_widgets'		=>	'',
-			'allow_svg'		=>	'',
+			'allow_svg_upload'		=>	'',
 			'show_footer'		=>	'',
 		);
 
@@ -253,13 +253,13 @@ class Functions_Manager_Settings {
 		);
 
 		add_settings_field(
-			'allow_svg',
-			__( 'Allow SVG', 'functions-manager' ),
+			'allow_svg_upload',
+			__( 'Allow SVG Uploads', 'functions-manager' ),
 			array( $this, 'toggle_content_callback'),
 			'fm_wordpress_settings',
 			'general_settings_section',
 			array(
-				__( 'Activate this setting to allow svg uploads to media.', 'functions-manager' ),
+				__( 'Activate this to allow svg uploads to media.', 'functions-manager' ),
 			)
 		);
 
@@ -431,9 +431,9 @@ class Functions_Manager_Settings {
 
 		$options = get_option('fm_wordpress_settings');
 
-		$html = '<input type="checkbox" id="allow_svg" name="fm_wordpress_settings[allow_svg]" value="1" ' . checked( 1, isset( $options['allow_svg'] ) ? $options['allow_svg'] : 0, false ) . '/>';
-		$html .= '<label for="allow_svg">&nbsp;'  . $args[0] . '</label>';
-		// $html .= '<br><br><span>Due to WordPress, SVG files have to start with the following xml snippet: <pre class="wp-block-code"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;</code></pre></span>';
+		$html = '<input type="checkbox" id="allow_svg_upload" name="fm_wordpress_settings[allow_svg_upload]" value="1" ' . checked( 1, isset( $options['allow_svg_upload'] ) ? $options['allow_svg_upload'] : 0, false ) . '/>';
+		$html .= '<label for="allow_svg_upload">&nbsp;'  . $args[0] . '</label>';
+		$html .= '<br><br><span>Due to WordPress, SVG files have to start with the following xml snippet: <pre class="wp-block-code"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;</code></pre></span>';
 
 		echo $html;
 

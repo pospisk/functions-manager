@@ -123,13 +123,13 @@ class Functions_Manager_Admin {
 		
 		$options = get_option('fm_wordpress_settings');
 		$remove_widgets = isset( $options['remove_widgets'] ) ? $options['remove_widgets'] : 0;
-		$allow_svg = isset( $options['allow_svg'] ) ? $options['allow_svg'] : 0;
+		$allow_svg_upload = isset( $options['allow_svg_upload'] ) ? $options['allow_svg_upload'] : 0;
 
 		if ( $remove_widgets == 1 ){
 			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/remove_widgets.php';
 		}
-		if ( $allow_svg == 1 ){
-			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/allow_svg.php';
+		if ( $allow_svg_upload == 1 ){
+			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/allow_svg_upload.php';
 		}
 		
 	}

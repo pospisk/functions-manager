@@ -1,10 +1,10 @@
 <?php
 
-function fm_allow_svg($mimes) {
+function fm_allow_svg_upload($mimes) {
     $mimes['svg'] = 'image/svg+xml';
     return $mimes;
 }
-add_filter('upload_mimes', 'fm_allow_svg');
+add_filter('upload_mimes', 'fm_allow_svg_upload');
 
 function fm_fix_svg() {
     echo <<<EOD
