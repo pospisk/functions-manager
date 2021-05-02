@@ -22,7 +22,7 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
-= 0.1 =
+= 0.2 =
 * created functions structure
 * added "Remove Dashboard Widgets"
 * added "Allow SVG Upload"
