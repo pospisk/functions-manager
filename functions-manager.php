@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Functions Manager
  * Plugin URI:        https://github.com/pospisk/functions-manager
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       The plugin is used to manage the functions.php file and to make it easier to edit in general.
  * Version:           1.0.0
  * Author:            pospisk
  * Author URI:        https://pospi.sk/

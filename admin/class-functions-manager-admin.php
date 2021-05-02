@@ -51,6 +51,25 @@ class Functions_Manager_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->load_dependencies();
+		$this->load_admin_functions();
+	}
+
+	/**
+	 * Load the required dependencies for the Admin facing functionality.
+	 *
+	 * Include the following files that make up the plugin:
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function load_dependencies() {
+			
+		/**
+		 * The class responsible for orchestrating the actions and filters of the
+		 * core plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/class-functions-manager-settings.php';
 
 	}
 
@@ -98,6 +117,21 @@ class Functions_Manager_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/functions-manager-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	private function load_admin_functions(){
+		
+		$options = get_option('fm_wordpress_settings');
+		$remove_widgets = isset( $options['remove_widgets'] ) ? $options['remove_widgets'] : 0;
+		$allow_svg = isset( $options['allow_svg'] ) ? $options['allow_svg'] : 0;
+
+		if ( $remove_widgets == 1 ){
+			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/remove_widgets.php';
+		}
+		if ( $allow_svg == 1 ){
+			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/allow_svg.php';
+		}
+		
 	}
 
 }

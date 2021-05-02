@@ -78,7 +78,6 @@ class Functions_Manager {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -122,6 +121,11 @@ class Functions_Manager {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-functions-manager-public.php';
 
+		/**
+		 * The plugin settings page
+		 */
+		// require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/class-functions-manager-settings.php';
+
 		$this->loader = new Functions_Manager_Loader();
 
 	}
@@ -153,10 +157,16 @@ class Functions_Manager {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Functions_Manager_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_settings = new Functions_Manager_Settings( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		$this->loader->add_action( 'admin_menu', $plugin_settings, 'setup_tools_options_menu' );
+		$this->loader->add_action( 'admin_init', $plugin_settings, 'initialize_display_options' );
+		$this->loader->add_action( 'admin_init', $plugin_settings, 'initialize_social_options' );
+		$this->loader->add_action( 'admin_init', $plugin_settings, 'initialize_input_examples' );
+		
 	}
 
 	/**
@@ -172,6 +182,8 @@ class Functions_Manager {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		
+		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
 
 	}
 

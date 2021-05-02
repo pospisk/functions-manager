@@ -51,7 +51,7 @@ class Functions_Manager_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
+		$this->load_public_functions();
 	}
 
 	/**
@@ -100,4 +100,18 @@ class Functions_Manager_Public {
 
 	}
 
+	public function register_shortcodes() {
+		add_shortcode( 'current_date', array( $this, 'custom_date_shortcode') );
+	}
+	
+	// Adding a basic custom shortcode that tells the current date
+	public function custom_date_shortcode( ) {
+		return '<p>The current date is ' . date('d-m-Y') . '.</p>';
+	}
+	
+
+	public function load_public_functions(){
+
+	}
+	
 }

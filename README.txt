@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Functions Manager ===
 Contributors: pospisk
 Donate link: https://pospi.sk/
 Tags: comments, spam
