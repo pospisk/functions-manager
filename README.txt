@@ -22,6 +22,9 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+= 0.3 =
+* created file structure
+
 = 0.2 =
 * created functions structure
 * added "Remove Dashboard Widgets"
