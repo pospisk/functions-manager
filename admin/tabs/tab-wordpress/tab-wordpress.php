@@ -20,6 +20,7 @@ trait Tab_Wordpress {
 			'wp_logo_settings_url'		=> '',
 			'wp_logo_settings_link'		=> '',
 			'wp_logo_settings_size'		=> '',
+			'wp_logo_settings_title'	=> '',
 		);
 		return $defaults;
 	}
@@ -59,7 +60,7 @@ trait Tab_Wordpress {
 		add_settings_field(
 			'remove_widgets',						        // ID used to identify the field throughout the theme
 			__( 'Dashboard Widgets', 'functions-manager' ),		// The label to the left of the option interface element
-			array( $this, 'toggle_header_callback'),	// The name of the function responsible for rendering the option interface
+			array( $this, 'remove_widgets'),	// The name of the function responsible for rendering the option interface
 			'fm_wordpress_settings',	            // The page on which this option will be displayed
 			'wordpress_settings_section',			        // The name of the section to which this field belongs
 			array(								        // The array of arguments to pass to the callback. In this case, just a description.
@@ -70,7 +71,7 @@ trait Tab_Wordpress {
 		add_settings_field(
 			'allow_svg_upload',
 			__( 'Allow SVG Uploads', 'functions-manager' ),
-			array( $this, 'toggle_content_callback'),
+			array( $this, 'allow_svg_upload'),
 			'fm_wordpress_settings',
 			'wordpress_settings_section',
 			array(
@@ -81,11 +82,22 @@ trait Tab_Wordpress {
 		add_settings_field(
 			'remove_emojis',
 			__( 'Remove Emojis', 'functions-manager' ),
-			array( $this, 'toggle_footer_callback'),
+			array( $this, 'remove_emojis'),
 			'fm_wordpress_settings',
 			'wordpress_settings_section',
 			array(
 				__( 'Activate to remove emojis.', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'remove_heartbeat',
+			__( 'Remove Heartbeat', 'functions-manager' ),
+			array( $this, 'remove_heartbeat'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Activate to remove WordPress Heartbeat.', 'functions-manager' ),
 			)
 		);
 
@@ -97,7 +109,7 @@ trait Tab_Wordpress {
 			'wordpress_settings_section',
 			array(
 				__( 'Activate to show WordPress Logo Settings.', 'functions-manager' ),
-				'wp_logo_settings_url wp_logo_settings_link wp_logo_settings_size',
+				'wp_logo_settings_url wp_logo_settings_link wp_logo_settings_size wp_logo_settings_title',
 			)
 		);
 
@@ -130,7 +142,18 @@ trait Tab_Wordpress {
 			'fm_wordpress_settings',
 			'wordpress_settings_section',
 			array(
-				__( 'Enter a size in "px" for the login logo.', 'functions-manager' ),
+				__( 'Enter a size in "px" for the login logo. default: 84', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'wp_logo_settings_title',
+			'Logo Title',
+			array( $this, 'wp_logo_settings_title'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Enter a title for the login logo. default: Powered by WordPress', 'functions-manager' ),
 			)
 		);
 

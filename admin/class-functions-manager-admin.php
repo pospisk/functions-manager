@@ -122,12 +122,15 @@ class Functions_Manager_Admin {
 	private function load_admin_functions(){
 		
 		$options = get_option('fm_wordpress_settings');
-		$remove_widgets = isset( $options['remove_widgets'] ) ? $options['remove_widgets'] : 0;
-		$allow_svg_upload = isset( $options['allow_svg_upload'] ) ? $options['allow_svg_upload'] : 0;
 		$remove_emojis = isset( $options['remove_emojis'] ) ? $options['remove_emojis'] : 0;
+		$remove_widgets = isset( $options['remove_widgets'] ) ? $options['remove_widgets'] : 0;
+		$remove_heartbeat = isset( $options['remove_heartbeat'] ) ? $options['remove_heartbeat'] : 0;
+		$allow_svg_upload = isset( $options['allow_svg_upload'] ) ? $options['allow_svg_upload'] : 0;
 		$wp_logo_settings_active = isset( $options['wp_logo_settings_active'] ) ? $options['wp_logo_settings_active'] : 0;
 		$wp_logo_settings_url = $options['wp_logo_settings_url'];
 		$wp_logo_settings_link = $options['wp_logo_settings_link'];
+		$wp_logo_settings_title = $options['wp_logo_settings_title'];
+		$wp_logo_settings_title = $options['wp_logo_settings_title'];
 
 		if ( $remove_widgets == 1 ){
 			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/remove_widgets.php';
@@ -145,6 +148,12 @@ class Functions_Manager_Admin {
 			if ( $wp_logo_settings_link !== '' ){
 				require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/change_wp_logo_link.php';
 			}
+			if ( $wp_logo_settings_title !== '' ){
+				require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/change_wp_logo_title.php';
+			}
+		}
+		if ( $remove_heartbeat == 1 ){
+			require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/inc/remove_heartbeat.php';
 		}
 		
 	}

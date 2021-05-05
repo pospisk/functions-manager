@@ -9,7 +9,7 @@ trait Tab_Wordpress_Settings {
 	 * It accepts an array or arguments and expects the first element in the array to be the description
 	 * to be displayed next to the checkbox.
 	 */
-	public function toggle_header_callback($args) {
+	public function remove_widgets($args) {
 
 		// First, we read the options collection
 		$options = get_option('fm_wordpress_settings');
@@ -23,9 +23,9 @@ trait Tab_Wordpress_Settings {
 
 		echo $html;
 
-	} // end toggle_header_callback
+	} // end remove_widgets
 
-    public function toggle_content_callback($args) {
+    public function allow_svg_upload($args) {
 
 		$options = get_option('fm_wordpress_settings');
 
@@ -35,9 +35,9 @@ trait Tab_Wordpress_Settings {
 
 		echo $html;
 
-	} // end toggle_content_callback
+	} // end allow_svg_upload
 
-	public function toggle_footer_callback($args) {
+	public function remove_emojis($args) {
 
 		$options = get_option('fm_wordpress_settings');
 
@@ -46,7 +46,18 @@ trait Tab_Wordpress_Settings {
 
 		echo $html;
 
-	} // end toggle_footer_callback
+	} // end remove_emojis
+
+	public function remove_heartbeat($args) {
+
+		$options = get_option('fm_wordpress_settings');
+
+		$html = '<input type="checkbox" id="remove_heartbeat" name="fm_wordpress_settings[remove_heartbeat]" value="1" ' . checked( 1, isset( $options['remove_heartbeat'] ) ? $options['remove_heartbeat'] : 0, false ) . '/>';
+		$html .= '<label for="remove_heartbeat">&nbsp;'  . $args[0] . '</label>';
+
+		echo $html;
+
+	} // end remove_heartbeat
 
 	public function wp_logo_settings_active($args) {
 
@@ -57,7 +68,7 @@ trait Tab_Wordpress_Settings {
 
 		echo $html;
 
-	} // end toggle_footer_callback
+	} // end remove_emojis
 
 	public function wp_logo_settings_url($args) {
 
@@ -102,6 +113,20 @@ trait Tab_Wordpress_Settings {
 		// Render the output
 		$html = '<input type="number" id="wp_logo_settings_size" name="fm_wordpress_settings[wp_logo_settings_size]" value="' . $url . '" />';
 		$html .= '<label for="wp_logo_settings_size">&nbsp;'  . $args[0] . '</label>';
+
+		echo $html;
+
+	} 
+
+	public function wp_logo_settings_title($args) {
+
+		$options = get_option('fm_wordpress_settings');
+
+		$title = $options['wp_logo_settings_title'];
+
+		// Render the output
+		$html = '<input type="text" id="wp_logo_settings_title" name="fm_wordpress_settings[wp_logo_settings_title]" value="' . $title . '" />';
+		$html .= '<label for="wp_logo_settings_title">&nbsp;'  . $args[0] . '</label>';
 
 		echo $html;
 

@@ -10,7 +10,8 @@ function fm_login_logo() {
     }
     echo '
     <style type="text/css">
-        h1 a { 
+        #login h1 a,
+        .login h1 a { 
             background-image: url("' . $options['wp_logo_settings_url'] . '") !important; 
             background-size: contain !important;
             width: ' . $logo_size . ' !important;
