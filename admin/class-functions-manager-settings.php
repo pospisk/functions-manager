@@ -17,11 +17,13 @@
 require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/tabs/tab-wordpress/tab-wordpress.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/tabs/tab-elementor/tab-elementor.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/tabs/tab-cookies/tab-cookies.php';
+require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/tabs/tab-custom/tab-custom.php';
 
 class Functions_Manager_Settings {
 	use Tab_Wordpress;
 	use Tab_Elementor;
 	use Tab_Cookies;
+	use Tab_Custom;
 	/**
 	 * The ID of this plugin.
 	 *
@@ -84,23 +86,30 @@ class Functions_Manager_Settings {
 
 			<?php if( isset( $_GET[ 'tab' ] ) ) {
 				$active_tab = $_GET[ 'tab' ];
-			} else if( $active_tab == 'social_options' ) {
-				$active_tab = 'social_options';
-			} else if( $active_tab == 'input_examples' ) {
-				$active_tab = 'input_examples';
-			} else {
+				}
+			if( $active_tab == 'elementor_options' ) {
+				$active_tab = 'elementor_options';
+			}
+			if( $active_tab == 'cookies_options' ) {
+				$active_tab = 'cookies_options';
+			} 
+			if( $active_tab == 'wordpress_options' ) {
 				$active_tab = 'wordpress_options';
-			} // end if/else ?>
+			} // end if/else 
+			?>
 
 			<h2 class="nav-tab-wrapper">
 				<a href="?page=functions_manager&tab=wordpress_options" class="nav-tab <?php echo $active_tab == 'wordpress_options' ? 'nav-tab-active' : ''; ?>">
 					<?php _e( 'WordPress', 'functions-manager' ); ?>
 				</a>
-				<a href="?page=functions_manager&tab=social_options" class="nav-tab <?php echo $active_tab == 'social_options' ? 'nav-tab-active' : ''; ?>">
-					<?php _e( 'Social Options', 'functions-manager' ); ?>
+				<a href="?page=functions_manager&tab=elementor_options" class="nav-tab <?php echo $active_tab == 'elementor_options' ? 'nav-tab-active' : ''; ?>">
+					<?php _e( 'Elementor', 'functions-manager' ); ?>
 				</a>
-				<a href="?page=functions_manager&tab=input_examples" class="nav-tab <?php echo $active_tab == 'input_examples' ? 'nav-tab-active' : ''; ?>">
-					<?php _e( 'Input Examples', 'functions-manager' ); ?>
+				<a href="?page=functions_manager&tab=cookies_options" class="nav-tab <?php echo $active_tab == 'cookies_options' ? 'nav-tab-active' : ''; ?>">
+					<?php _e( 'Cookies', 'functions-manager' ); ?>
+				</a>
+				<a href="?page=functions_manager&tab=custom_options" class="nav-tab <?php echo $active_tab == 'custom_options' ? 'nav-tab-active' : ''; ?>">
+					<?php _e( 'Custom', 'functions-manager' ); ?>
 				</a>
 			</h2>
 
@@ -112,17 +121,25 @@ class Functions_Manager_Settings {
 					settings_fields( 'fm_wordpress_settings' );
 					do_settings_sections( 'fm_wordpress_settings' );
 
-				} elseif( $active_tab == 'social_options' ) {
+				}
+				if( $active_tab == 'elementor_options' ) {
 
-					settings_fields( 'wppb_demo_social_options' );
-					do_settings_sections( 'wppb_demo_social_options' );
+					settings_fields( 'fm_elementor_settings' );
+					do_settings_sections( 'fm_elementor_settings' );
 
-				} else {
+				} 
+				if ( $active_tab == 'cookies_options' ) {
 
-					settings_fields( 'wppb_demo_input_examples' );
-					do_settings_sections( 'wppb_demo_input_examples' );
+					settings_fields( 'fm_cookies_settings' );
+					do_settings_sections( 'fm_cookies_settings' );
 
-				} // end if/else
+				}
+				if ( $active_tab == 'custom_options' ) {
+
+					settings_fields( 'fm_custom_settings' );
+					do_settings_sections( 'fm_custom_settings' );
+
+				}
 
 				submit_button();
 

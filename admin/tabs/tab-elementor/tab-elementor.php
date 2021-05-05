@@ -11,7 +11,7 @@ trait Tab_Elementor {
 	 *
 	 * @return array
 	 */
-	public function default_social_options() {
+	public function elementor_options_default() {
 
 		$defaults = array(
 			'twitter'		=>	'twitter',
@@ -25,12 +25,9 @@ trait Tab_Elementor {
 
 	/**
 	 * This function provides a simple description for the Social Options page.
-	 *
-	 * It's called from the 'wppb-demo_theme_initialize_social_options' function by being passed as a parameter
-	 * in the add_settings_section function.
 	 */
-	public function social_options_callback() {
-		$options = get_option('wppb_demo_social_options');
+	public function elementor_options_callback() {
+		$options = get_option('fm_elementor_settings');
 		var_dump($options);
 		echo '<p>' . __( 'Provide the URL to the social networks you\'d like to display.', 'functions-manager' ) . '</p>';
 	} // end general_options_callback
@@ -41,25 +38,25 @@ trait Tab_Elementor {
 	 *
 	 * This function is registered with the 'admin_init' hook.
 	 */
-	public function initialize_social_options() {
-		delete_option('wppb_demo_social_options');
-		if( false == get_option( 'wppb_demo_social_options' ) ) {
-			$default_array = $this->default_social_options();
-			update_option( 'wppb_demo_social_options', $default_array );
+	public function init_elementor_options() {
+		delete_option('fm_elementor_settings');
+		if( false == get_option( 'fm_elementor_settings' ) ) {
+			$default_array = $this->elementor_options_default();
+			update_option( 'fm_elementor_settings', $default_array );
 		} // end if
 
 		add_settings_section(
 			'social_settings_section',			// ID used to identify this section and with which to register options
 			__( 'Social Options', 'functions-manager' ),		// Title to be displayed on the administration page
-			array( $this, 'social_options_callback'),	// Callback used to render the description of the section
-			'wppb_demo_social_options'		// Page on which to add this section of options
+			array( $this, 'elementor_options_callback'),	// Callback used to render the description of the section
+			'fm_elementor_settings'		// Page on which to add this section of options
 		);
 
 		add_settings_field(
 			'twitter',
 			'Twitter',
 			array( $this, 'twitter_callback'),
-			'wppb_demo_social_options',
+			'fm_elementor_settings',
 			'social_settings_section'
 		);
 
@@ -67,7 +64,7 @@ trait Tab_Elementor {
 			'facebook',
 			'Facebook',
 			array( $this, 'facebook_callback'),
-			'wppb_demo_social_options',
+			'fm_elementor_settings',
 			'social_settings_section'
 		);
 
@@ -75,13 +72,13 @@ trait Tab_Elementor {
 			'googleplus',
 			'Google+',
 			array( $this, 'googleplus_callback'),
-			'wppb_demo_social_options',
+			'fm_elementor_settings',
 			'social_settings_section'
 		);
 
 		register_setting(
-			'wppb_demo_social_options',
-			'wppb_demo_social_options',
+			'fm_elementor_settings',
+			'fm_elementor_settings',
 			array( $this, 'sanitize_social_options')
 		);
 

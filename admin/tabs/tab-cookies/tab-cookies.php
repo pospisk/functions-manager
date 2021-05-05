@@ -11,7 +11,7 @@ trait Tab_Cookies{
 	 *
 	 * @return array
 	 */
-	public function default_input_options() {
+	public function cookies_options_default() {
 		$defaults = array(
 			'input_example'		=>	'default input example',
 			'textarea_example'	=>	'',
@@ -24,80 +24,73 @@ trait Tab_Cookies{
 
     /**
 	 * This function provides a simple description for the Input Examples page.
-	 *
-	 * It's called from the 'wppb-demo_theme_initialize_input_examples_options' function by being passed as a parameter
-	 * in the add_settings_section function.
 	 */
-	public function input_examples_callback() {
-		$options = get_option('wppb_demo_input_examples');
+	public function cookies_options_page() {
+		$options = get_option('fm_cookies_settings');
 		var_dump($options);
 		echo '<p>' . __( 'Provides examples of the five basic element types.', 'functions-manager' ) . '</p>';
-	} // end general_options_callback
+	}
 
     /**
-	 * Initializes the theme's input example by registering the Sections,
-	 * Fields, and Settings. This particular group of options is used to demonstration
-	 * validation and sanitization.
-	 *
-	 * This function is registered with the 'admin_init' hook.
+	 * This function initializes the cookies sections and settings.
 	 */
-	public function initialize_input_examples() {
-		//delete_option('wppb_demo_input_examples');
-		if( false == get_option( 'wppb_demo_input_examples' ) ) {
-			$default_array = $this->default_input_options();
-			update_option( 'wppb_demo_input_examples', $default_array );
-		} // end if
+	public function init_cookies_options() {
+
+		if( false == get_option( 'fm_cookies_settings' ) ) {
+			$default_array = $this->cookies_options_default();
+			update_option( 'fm_cookies_settings', $default_array );
+		} 
 
 		add_settings_section(
-			'input_examples_section',
+			'cookies_settings_section',
 			__( 'Input Examples', 'functions-manager' ),
-			array( $this, 'input_examples_callback'),
-			'wppb_demo_input_examples'
+			array( $this, 'cookies_options_page'),
+			'fm_cookies_settings'
 		);
 
 		add_settings_field(
 			'Input Element',
 			__( 'Input Element', 'functions-manager' ),
 			array( $this, 'input_element_callback'),
-			'wppb_demo_input_examples',
-			'input_examples_section'
+			'fm_cookies_settings',
+			'cookies_settings_section'
 		);
 
 		add_settings_field(
 			'Textarea Element',
 			__( 'Textarea Element', 'functions-manager' ),
 			array( $this, 'textarea_element_callback'),
-			'wppb_demo_input_examples',
-			'input_examples_section'
+			'fm_cookies_settings',
+			'cookies_settings_section'
 		);
 
 		add_settings_field(
 			'Checkbox Element',
 			__( 'Checkbox Element', 'functions-manager' ),
 			array( $this, 'checkbox_element_callback'),
-			'wppb_demo_input_examples',
-			'input_examples_section'
+			'fm_cookies_settings',
+			'cookies_settings_section'
 		);
 
 		add_settings_field(
 			'Radio Button Elements',
 			__( 'Radio Button Elements', 'functions-manager' ),
 			array( $this, 'radio_element_callback'),
-			'wppb_demo_input_examples',
-			'input_examples_section'
+			'fm_cookies_settings',
+			'cookies_settings_section'
 		);
 
 		add_settings_field(
 			'Select Element',
 			__( 'Select Element', 'functions-manager' ),
 			array( $this, 'select_element_callback'),
-			'wppb_demo_input_examples',
-			'input_examples_section'
+			'fm_cookies_settings',
+			'cookies_settings_section'
 		);
 
 		register_setting(
-			'wppb_demo_input_examples',
-			'wppb_demo_input_examples',
+			'fm_cookies_settings',
+			'fm_cookies_settings',
 			array( $this, 'validate_input_examples')
 		);
 

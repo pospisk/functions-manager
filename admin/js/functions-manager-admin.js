@@ -1,32 +1,31 @@
-(function( $ ) {
-	'use strict';
+document.addEventListener("DOMContentLoaded", function(event) {
 
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+	// Logo Settings
+	var logo_settings_active = document.getElementById('wp_logo_settings_active');
+	var logo_settings_children_string = logo_settings_active.getAttribute('data-children');
+	var logo_settings_children = logo_settings_children_string.split(" ");
 
-})( jQuery );
+	if (logo_settings_active.checked) {
+		logo_settings_children.forEach(function(item){
+			document.getElementById(item).parentNode.parentNode.style.display = 'table-row';
+		});
+	} else {
+		logo_settings_children.forEach(function(item){
+			document.getElementById(item).parentNode.parentNode.style.display = 'none';
+		});
+	}
+
+	logo_settings_active.addEventListener('change', function() {
+		if (this.checked) {
+			logo_settings_children.forEach(function(item){
+				document.getElementById(item).parentNode.parentNode.style.display = 'table-row';
+			});
+		} else {
+			logo_settings_children.forEach(function(item){
+				document.getElementById(item).parentNode.parentNode.style.display = 'none';
+			});
+		}
+	});
+	// Logo Settings End
+
+});

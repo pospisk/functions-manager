@@ -11,56 +11,56 @@ trait Tab_Wordpress {
 	 *
 	 * @return array
 	 */
-	public function default_display_options() {
+	public function wordpress_options_default() {
 		$defaults = array(
-			'remove_widgets'		=>	'',
-			'allow_svg_upload'		=>	'',
-			'remove_emojis'		=>	'',
+			'remove_widgets'			=> '',
+			'allow_svg_upload'			=> '',
+			'remove_emojis'				=> '',
+			'wp_logo_settings_active' 	=> '',
+			'wp_logo_settings_url'		=> '',
+			'wp_logo_settings_link'		=> '',
 		);
 		return $defaults;
 	}
 
 	/**
 	 * This function provides a simple description for the General Options page.
-	 *
-	 * It's called from the 'wppb-demo_initialize_theme_options' function by being passed as a parameter
-	 * in the add_settings_section function.
 	 */
-	public function general_options_callback() {
+	public function wordpress_options_page() {
 		$options = get_option('fm_wordpress_settings');
-		// var_dump($options);
+		var_dump($options);
 		echo '<p>' . __( 'Select which areas of content you wish to display.', 'functions-manager' ) . '</p>';
-	} // end general_options_callback
+	} // end wordpress_options_page
 
-	/**
-	 * Initializes the theme's display options page by registering the Sections,
-	 * Fields, and Settings.
-	 *
-	 * This function is registered with the 'admin_init' hook.
+    /**
+	 * This function initializes the wordpress sections and settings.
 	 */
-	public function initialize_display_options() {
+	public function init_wordpress_options() {
 
 		// If the theme options don't exist, create them.
+		// if( false == get_option( 'fm_wordpress_settings' ) ) {
+		// 	$default_array = $this->wordpress_options_default();
+		// 	add_option( 'fm_wordpress_settings', $default_array );
+		// }
+
 		if( false == get_option( 'fm_wordpress_settings' ) ) {
-			$default_array = $this->default_display_options();
-			add_option( 'fm_wordpress_settings', $default_array );
+			$default_array = $this->wordpress_options_default();
+			update_option( 'fm_wordpress_settings', $default_array );
 		}
 
-
 		add_settings_section(
-			'general_settings_section',			            // ID used to identify this section and with which to register options
+			'wordpress_settings_section',			            // ID used to identify this section and with which to register options
 			__( 'WordPress Options', 'functions-manager' ), // Title to be displayed on the administration page
-			array( $this, 'general_options_callback'),	    // Callback used to render the description of the section
+			array( $this, 'wordpress_options_page'),	    // Callback used to render the description of the section
 			'fm_wordpress_settings'		                // Page on which to add this section of options
 		);
 
-		// Next, we'll introduce the fields for toggling the visibility of content elements.
 		add_settings_field(
 			'remove_widgets',						        // ID used to identify the field throughout the theme
 			__( 'Dashboard Widgets', 'functions-manager' ),		// The label to the left of the option interface element
 			array( $this, 'toggle_header_callback'),	// The name of the function responsible for rendering the option interface
 			'fm_wordpress_settings',	            // The page on which this option will be displayed
-			'general_settings_section',			        // The name of the section to which this field belongs
+			'wordpress_settings_section',			        // The name of the section to which this field belongs
 			array(								        // The array of arguments to pass to the callback. In this case, just a description.
 				__( 'Activate to hide all dashboard widgets.', 'functions-manager' ),
 			)
@@ -71,7 +71,7 @@ trait Tab_Wordpress {
 			__( 'Allow SVG Uploads', 'functions-manager' ),
 			array( $this, 'toggle_content_callback'),
 			'fm_wordpress_settings',
-			'general_settings_section',
+			'wordpress_settings_section',
 			array(
 				__( 'Activate to allow svg uploads to media.', 'functions-manager' ),
 			)
@@ -82,19 +82,75 @@ trait Tab_Wordpress {
 			__( 'Remove Emojis', 'functions-manager' ),
 			array( $this, 'toggle_footer_callback'),
 			'fm_wordpress_settings',
-			'general_settings_section',
+			'wordpress_settings_section',
 			array(
 				__( 'Activate to remove emojis.', 'functions-manager' ),
 			)
 		);
 
-		// Finally, we register the fields with WordPress
-		register_setting(
+		add_settings_field(
+			'wp_logo_settings_active',
+			__( 'Logo Settings', 'functions-manager' ),
+			array( $this, 'wp_logo_settings_active'),
 			'fm_wordpress_settings',
-			'fm_wordpress_settings'
+			'wordpress_settings_section',
+			array(
+				__( 'Activate to show WordPress Logo Settings.', 'functions-manager' ),
+				'wp_logo_settings_url wp_logo_settings_link',
+			)
 		);
 
-	} // end wppb-demo_initialize_theme_options
+		add_settings_field(
+			'wp_logo_settings_url',
+			'Logo URL',
+			array( $this, 'wp_logo_settings_url'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section'
+		);
+
+		add_settings_field(
+			'wp_logo_settings_link',
+			'Logo Link',
+			array( $this, 'wp_logo_settings_link'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section'
+		);
+
+		register_setting(
+			'fm_wordpress_settings',
+			'fm_wordpress_settings',
+			array( $this, 'sanitize_wordpress_options')
+		);
+
+	}
+
+	/**
+	 * @params	$input	The unsanitized collection of options.
+	 *
+	 * @returns			The collection of sanitized values.
+	 */
+	public function sanitize_wordpress_options( $input ) {
+
+		// Create our array for storing the validated options
+		$output = array();
+
+		// Loop through each of the incoming options
+		foreach( $input as $key => $value ) {
+
+			// Check to see if the current option has a value. If so, process it.
+			if( isset( $input[$key] ) ) {
+
+				// Strip all HTML and PHP tags and properly handle quoted strings
+				$output[$key] = strip_tags( stripslashes( $input[ $key ] ) );
+
+			} // end if
+
+		} // end foreach
+
+		// Return the array processing any additional functions filtered by this action
+		return apply_filters( 'sanitize_wordpress_options', $output, $input );
+
+	} // end sanitize_wordpress_options
 
 }
 
