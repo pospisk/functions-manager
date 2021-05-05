@@ -19,6 +19,7 @@ trait Tab_Wordpress {
 			'wp_logo_settings_active' 	=> '',
 			'wp_logo_settings_url'		=> '',
 			'wp_logo_settings_link'		=> '',
+			'wp_logo_settings_size'		=> '',
 		);
 		return $defaults;
 	}
@@ -90,13 +91,13 @@ trait Tab_Wordpress {
 
 		add_settings_field(
 			'wp_logo_settings_active',
-			__( 'Logo Settings', 'functions-manager' ),
+			__( 'Login Logo Settings', 'functions-manager' ),
 			array( $this, 'wp_logo_settings_active'),
 			'fm_wordpress_settings',
 			'wordpress_settings_section',
 			array(
 				__( 'Activate to show WordPress Logo Settings.', 'functions-manager' ),
-				'wp_logo_settings_url wp_logo_settings_link',
+				'wp_logo_settings_url wp_logo_settings_link wp_logo_settings_size',
 			)
 		);
 
@@ -105,7 +106,10 @@ trait Tab_Wordpress {
 			'Logo URL',
 			array( $this, 'wp_logo_settings_url'),
 			'fm_wordpress_settings',
-			'wordpress_settings_section'
+			'wordpress_settings_section',
+			array(
+				__( 'Enter URL for an image file to change the login logo.', 'functions-manager' ),
+			)
 		);
 
 		add_settings_field(
@@ -113,7 +117,21 @@ trait Tab_Wordpress {
 			'Logo Link',
 			array( $this, 'wp_logo_settings_link'),
 			'fm_wordpress_settings',
-			'wordpress_settings_section'
+			'wordpress_settings_section',
+			array(
+				__( 'Enter a link where the logo should direct. default: https://wordpress.org/', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'wp_logo_settings_size',
+			'Logo Size',
+			array( $this, 'wp_logo_settings_size'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Enter a size in "px" for the login logo.', 'functions-manager' ),
+			)
 		);
 
 		register_setting(

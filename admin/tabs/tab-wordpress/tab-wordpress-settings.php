@@ -69,7 +69,10 @@ trait Tab_Wordpress_Settings {
 		} 
 
 		// Render the output
-		echo '<input type="text" id="wp_logo_settings_url" name="fm_wordpress_settings[wp_logo_settings_url]" value="' . $url . '" />';
+		$html = '<input type="text" id="wp_logo_settings_url" name="fm_wordpress_settings[wp_logo_settings_url]" value="' . $url . '" />';
+		$html .= '<label for="wp_logo_settings_url">&nbsp;'  . $args[0] . '</label>';
+
+		echo $html;
 
 	} 
 
@@ -83,7 +86,24 @@ trait Tab_Wordpress_Settings {
 		} 
 
 		// Render the output
-		echo '<input type="text" id="wp_logo_settings_link" name="fm_wordpress_settings[wp_logo_settings_link]" value="' . $url . '" />';
+		$html = '<input type="text" id="wp_logo_settings_link" name="fm_wordpress_settings[wp_logo_settings_link]" value="' . $url . '" />';
+		$html .= '<label for="wp_logo_settings_link">&nbsp;'  . $args[0] . '</label>';
+
+		echo $html;
+
+	} 
+
+	public function wp_logo_settings_size($args) {
+
+		$options = get_option('fm_wordpress_settings');
+
+		$url = $options['wp_logo_settings_size'];
+
+		// Render the output
+		$html = '<input type="number" id="wp_logo_settings_size" name="fm_wordpress_settings[wp_logo_settings_size]" value="' . $url . '" />';
+		$html .= '<label for="wp_logo_settings_size">&nbsp;'  . $args[0] . '</label>';
+
+		echo $html;
 
 	} 
 
