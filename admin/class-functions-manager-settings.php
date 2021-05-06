@@ -95,7 +95,10 @@ class Functions_Manager_Settings {
 			} 
 			if( $active_tab == 'wordpress_options' ) {
 				$active_tab = 'wordpress_options';
-			} // end if/else 
+			}
+			if( $active_tab == '' ) {
+				$active_tab = 'wordpress_options';
+			}
 			?>
 
 			<h2 class="nav-tab-wrapper">

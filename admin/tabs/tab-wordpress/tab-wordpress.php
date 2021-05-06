@@ -32,6 +32,7 @@ trait Tab_Wordpress {
 		$options = get_option('fm_wordpress_settings');
 		var_dump($options);
 		echo '<p>' . __( 'Select which areas of content you wish to display.', 'functions-manager' ) . '</p>';
+		echo '<a href="' . get_site_url() . '/wp-admin/options.php" rel="noopener" target="_blank">' . __( 'Hidden WP Settings', 'functions-manager' ) . '</a>';
 	} // end wordpress_options_page
 
     /**
@@ -102,6 +103,83 @@ trait Tab_Wordpress {
 		);
 
 		add_settings_field(
+			'remove_ver_enqueue',
+			__( 'Remove enqueued files version', 'functions-manager' ),
+			array( $this, 'remove_ver_enqueue'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Activate to remove "ver" parameter from all enqueued CSS and JS files.', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'remove_wp_ver',
+			__( 'Remove WordPress Version', 'functions-manager' ),
+			array( $this, 'remove_wp_ver'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Activate to remove WordPress version from <head> and HTTP header.', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'remove_wlmanifest',
+			__( 'Remove WLManifest', 'functions-manager' ),
+			array( $this, 'remove_wlmanifest'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Activate to remove Windows live writer tagging support.', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'remove_oembed',
+			__( 'Remove oEmbed', 'functions-manager' ),
+			array( $this, 'remove_oembed'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Activate to prevent any site to embed WordPress post remotely.', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'disable_core_updates',
+			__( 'Disable Core Updates', 'functions-manager' ),
+			array( $this, 'disable_core_updates'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Activate to disable WordPress Core Updates.', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'disable_plugin_updates',
+			__( 'Disable Plugin Updates', 'functions-manager' ),
+			array( $this, 'disable_plugin_updates'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Activate to disable WordPress Core Updates.', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'disable_theme_updates',
+			__( 'Disable Theme Updates', 'functions-manager' ),
+			array( $this, 'disable_theme_updates'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Activate to disable WordPress Core Updates.', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
 			'wp_logo_settings_active',
 			__( 'Login Logo Settings', 'functions-manager' ),
 			array( $this, 'wp_logo_settings_active'),
@@ -154,6 +232,17 @@ trait Tab_Wordpress {
 			'wordpress_settings_section',
 			array(
 				__( 'Enter a title for the login logo. default: Powered by WordPress', 'functions-manager' ),
+			)
+		);
+
+		add_settings_field(
+			'wp_backend_footer_text',
+			'WP Backend Footer Text',
+			array( $this, 'wp_backend_footer_text'),
+			'fm_wordpress_settings',
+			'wordpress_settings_section',
+			array(
+				__( 'Enter text for the backend footer.', 'functions-manager' ),
 			)
 		);
 

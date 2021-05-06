@@ -22,6 +22,25 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+= 0.4 =
+* added WordPress > Remove Dashboard Widgets
+* added WordPress > Remove Emojis
+* added WordPress > Remove Heartbeat
+* added WordPress > Remove enqueued files version
+* added WordPress > Remove WordPress Version
+* added WordPress > Remove WLManifest
+* added WordPress > Remove oEmbed
+* added WordPress > Disable Core Updates
+* added WordPress > Disable Plugin Updates
+* added WordPress > Disable Theme Updates
+* added WordPress > Login Logo Settings
+* added WordPress > Logo URL
+* added WordPress > Logo Link
+* added WordPress > Logo Size
+* added WordPress > Logo Title
+* added WordPress > WP Backend Footer Text
+
+
 = 0.3 =
 * created file structure
 
