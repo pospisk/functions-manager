@@ -73,6 +73,13 @@ class Functions_Manager_Admin {
 
 	}
 
+	function add_plugin_link( $links ) {
+		$links = array_merge( array(
+			'<a href="' . esc_url( admin_url( '/tools.php?page=functions_manager' ) ) . '">' . __( 'Settings', 'textdomain' ) . '</a>'
+		), $links );
+		return $links;
+	}
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *

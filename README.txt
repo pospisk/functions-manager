@@ -22,6 +22,10 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+= 0.5 =
+* added Settings link on the plugins page
+* improved functions-manager-admin.js
+
 = 0.4 =
 * added WordPress > Remove Dashboard Widgets
 * added WordPress > Remove Emojis

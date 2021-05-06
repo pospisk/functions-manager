@@ -167,7 +167,8 @@ class Functions_Manager {
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'init_elementor_options' );
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'init_cookies_options' );
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'init_custom_options' );
-		
+		$this->loader->add_action( 'plugin_action_links' , $plugin_admin, 'add_plugin_link' );
+
 	}
 
 	/**
